@@ -9,6 +9,7 @@ import plotly.express as px
 
 
 data = pd.read_csv("data/dataset.csv", dtype={'ano': 'object'})
+data['data'] = pd.to_datetime(data.ano, format='%Y')
 
 external_stylesheets = [
     {
@@ -33,7 +34,7 @@ app.layout = html.Div([
     ],className="header"),
     html.Div([
         html.Div([
-            html.Div('Rating Médio', className="menu-title"),
+            html.Div('Restaurante', className="menu-title"),
             dcc.Dropdown(
                 id='restaurant-filter',
                 options=[
@@ -58,7 +59,20 @@ app.layout = html.Div([
                 clearable=False,
                 className="dropdown",
             )
-        ])
+        ]),
+        html.Div([
+            html.Div(
+                children="Período",
+                className="menu-title"
+                ),
+            dcc.DatePickerRange(
+                id="date-range",
+                min_date_allowed=data.data.min().date(),
+                max_date_allowed=data.data.max().date(),
+                start_date=data.data.min().date(),
+                end_date=data.data.max().date(),
+            ),
+        ]),
     ],className="menu",
     ),
     html.Div(
@@ -80,10 +94,14 @@ app.layout = html.Div([
     Output('restaurant-rating', 'figure'),
     Input('restaurant-filter', 'value'),
     Input('language-filter', 'value'),
+    Input("date-range", "start_date"),
+    Input("date-range", "end_date"),
 )
-def update_figure_restaurant_ratings(restaurants, language):
+def update_figure_restaurant_ratings(restaurants, language, start_date, end_date):
     search_filter = (
         (data.restaurante.isin(restaurants))
+        & (data.data >= start_date)
+        & (data.data <= end_date)
     )
     if language != 'Any':
         search_filter = search_filter & (data.idioma == language)
