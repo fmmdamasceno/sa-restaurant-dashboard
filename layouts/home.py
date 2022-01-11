@@ -1,10 +1,11 @@
 from dash import html, dcc
 import numpy as np
+import pandas as pd
 import random
 from layouts import header
+import utils
 
-from utils import data
-
+data = utils.load_dataset()
 
 layout = html.Div([
     header.layout,

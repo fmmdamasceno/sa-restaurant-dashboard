@@ -1,7 +1,9 @@
 from dash import html, dcc
 import numpy as np
 from layouts import header
-from utils import data
+import utils
+
+data = utils.load_dataset()
 
 layout = html.Div([
     header.layout,

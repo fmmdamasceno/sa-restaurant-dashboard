@@ -1,5 +1,4 @@
 import dash
-from dash import dcc, html
 
 external_stylesheets = [
     {
