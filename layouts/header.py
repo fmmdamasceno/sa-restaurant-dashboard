@@ -1,5 +1,4 @@
 from dash import html, dcc
-import numpy as np
 
 layout = html.Div([
     

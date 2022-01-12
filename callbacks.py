@@ -3,9 +3,9 @@ from app import app
 from utils import load_dataset, stopwords
 import plotly.express as px
 import pandas as pd
-import matplotlib.pyplot as plt
-from PIL import Image
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from wordcloud import WordCloud
+
+
 
 @app.callback(
     Output('restaurant-rating-compare', 'figure'),
@@ -39,7 +39,7 @@ def update_figure_restaurant_ratings_compare(restaurants, language, start_date, 
 
 
 @app.callback(
-    Output('store-data', 'data'),
+    Output('store', 'data'),
     Input('restaurant-filter', 'value'),
     Input('language-filter', 'value'),
     Input("date-range", "start_date"),
@@ -56,10 +56,11 @@ def select_restaurant(restaurant, language, start_date, end_date):
         search_filter = search_filter & (data.idioma == language)
 
     return data.loc[search_filter, :].to_dict()
+    
 
 @app.callback(
     Output('restaurant-rating', 'figure'),
-    Input('store-data', 'data')
+    Input('store', 'data')
 )
 def update_figure_restaurant_ratings(data):
 
@@ -80,17 +81,17 @@ def update_figure_restaurant_ratings(data):
 
 @app.callback(
     Output('restaurant-wordcloud', 'figure'),
-    Input('store-data', 'data')
+    Input('store', 'data')
 )
 def update_wordcloud(data):
 
     filtered_data = pd.DataFrame(data).dropna(
         subset=['comentario'], axis=0)['comentario']
-    
+   
     concat_words = " ".join(s for s in filtered_data)
 
     wordcloud = WordCloud(
-        stopwords=stopwords,
+        stopwords=stopwords(),
         background_color="black",
         width=1600, height=800).generate(concat_words)
 

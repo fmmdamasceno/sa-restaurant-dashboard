@@ -2,14 +2,13 @@ from dash import dcc, html
 from dash.dependencies import Output, Input
 from app import app
 from layouts import home, compare
+import callbacks
 
 
 app.layout = html.Div([
+    dcc.Store(id='store'),
     dcc.Location(id='url', refresh=False),
-    html.Div(id='page-content'),
-
-    # dcc.Store inside the user's current browser session
-    dcc.Store(id='store-data', data=[], storage_type='memory') # 'local' or 'session'
+    html.Div(id='page-content')
 ])
 
 @app.callback(

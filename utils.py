@@ -1,12 +1,12 @@
 import pandas as pd
 import nltk
 from app import app
-from flask_caching import Cache
 
+data = pd.read_csv(app.server.root_path+"/datasets/dataset.csv", dtype={'ano': 'object'})
+data['data'] = pd.to_datetime(data.ano, format='%Y')
 
-
-def stopwords(lang):
-    return nltk.corpus.stopwords.words(lang)
+def stopwords():
+    return nltk.corpus.stopwords.words()
 
 def load_dataset():
     
