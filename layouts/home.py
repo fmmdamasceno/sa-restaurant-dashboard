@@ -1,11 +1,13 @@
-from dash import html, dcc
-import numpy as np
-import pandas as pd
-import random
+from dash import html
+from dash import dcc
 from layouts import header
-import utils
-
-data = utils.load_dataset()
+from utils import (
+    options_restaurants,
+    options_idioms,
+    option_random_restaurant,
+    min_date,
+    max_date
+)
 
 layout = html.Div([
     header.layout,
@@ -14,11 +16,8 @@ layout = html.Div([
             html.Div('Restaurante', className="menu-title"),
             dcc.Dropdown(
                 id='restaurant-filter',
-                options=[
-                    {'label': restaurant, 'value': restaurant}
-                    for restaurant in np.sort(data.restaurante.unique())
-                ],
-                value=random.choice([r for r in np.sort(data.restaurante.unique())]),
+                options=options_restaurants,
+                value=option_random_restaurant,
                 clearable=False,
                 className="dropdown",
             )
@@ -27,10 +26,7 @@ layout = html.Div([
             html.Div('Idioma', className="menu-title"),
             dcc.Dropdown(
                 id='language-filter',
-                options=[
-                    {'label': language, 'value': language}
-                    for language in np.sort(data.idioma.fillna('Any').unique())
-                ],
+                options=options_idioms,
                 value='Any',
                 clearable=False,
                 className="dropdown",
@@ -43,10 +39,10 @@ layout = html.Div([
                 ),
             dcc.DatePickerRange(
                 id="date-range",
-                min_date_allowed=data.data.min().date(),
-                max_date_allowed=data.data.max().date(),
-                start_date=data.data.min().date(),
-                end_date=data.data.max().date(),
+                min_date_allowed=min_date,
+                max_date_allowed=max_date,
+                start_date=min_date,
+                end_date=max_date,
             ),
         ]),
     ],className="menu",

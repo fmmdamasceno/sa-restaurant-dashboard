@@ -1,9 +1,9 @@
 from dash.dependencies import Input, Output
 from app import app
-from utils import load_dataset, stopwords
+from wordcloud import WordCloud
 import plotly.express as px
 import pandas as pd
-from wordcloud import WordCloud
+import utils
 
 
 
@@ -15,18 +15,9 @@ from wordcloud import WordCloud
     Input("date-range-compare", "end_date"),
 )
 def update_figure_restaurant_ratings_compare(restaurants, language, start_date, end_date):
-    data = load_dataset()
-    search_filter = (
-        (data.restaurante.isin(restaurants))
-        & (data.data >= start_date)
-        & (data.data <= end_date)
-    )
-    if language != 'Any':
-        search_filter = search_filter & (data.idioma == language)
-
-    filtered_data = data.loc[search_filter, :].groupby(
-            ['restaurante','ano'],
-            as_index=False)['rating'].mean()
+    filtered_data = utils.get_restaurants(
+        restaurants, language, start_date, end_date).groupby(['restaurante','ano'],as_index=False
+    )['rating'].mean()
 
     fig = px.line(
         filtered_data,
@@ -46,16 +37,7 @@ def update_figure_restaurant_ratings_compare(restaurants, language, start_date, 
     Input("date-range", "end_date"),
 )
 def select_restaurant(restaurant, language, start_date, end_date):
-    data = load_dataset()
-    search_filter = (
-        (data.restaurante == restaurant)
-        & (data.data >= start_date)
-        & (data.data <= end_date)
-    )
-    if language != 'Any':
-        search_filter = search_filter & (data.idioma == language)
-
-    return data.loc[search_filter, :].to_dict()
+    return utils.get_restaurants([restaurant], language, start_date, end_date).to_dict()
     
 
 @app.callback(
@@ -91,7 +73,7 @@ def update_wordcloud(data):
     concat_words = " ".join(s for s in filtered_data)
 
     wordcloud = WordCloud(
-        stopwords=stopwords(),
+        stopwords=utils.stopwords,
         background_color="black",
         width=1600, height=800).generate(concat_words)
 
