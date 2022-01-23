@@ -5,7 +5,9 @@ layout = html.Div([
     html.Div([
         dcc.Link('Home', href='/', className='menu-title iblock'),
         html.Div([' '],className='iblock'),
-        dcc.Link('Compare', href='/compare', className='menu-title iblock')
+        dcc.Link('Compare', href='/compare', className='menu-title iblock'),
+        html.Div([' '],className='iblock'),
+        dcc.Link('Explore', href='/explore', className='menu-title iblock')
     ],className=''),
     
     html.Div([

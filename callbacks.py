@@ -2,6 +2,7 @@ from dash.dependencies import Input, Output
 from app import app
 from wordcloud import WordCloud
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 import utils
 
@@ -56,11 +57,11 @@ def update_figure_restaurant_ratings(data):
         y='rating',
         color='restaurante',
         labels={'ano':'Ano','rating':'Rating','restaurante':'Restaurante'},
-        title="Avaliação Média", height=400)
+        height=400)
     fig.update_traces(mode='markers+lines')
     return fig
 
-
+# WordCloud Callback
 @app.callback(
     Output('restaurant-wordcloud', 'figure'),
     Input('store', 'data')
@@ -77,5 +78,53 @@ def update_wordcloud(data):
         background_color="black",
         width=1600, height=800).generate(concat_words)
 
-    fig = px.imshow(wordcloud.to_image(),title="Nuvem de Palavras")
+    fig = px.imshow(wordcloud.to_image())
+    return fig
+
+
+# Distribution Callback
+@app.callback(
+    Output('comment-distribution', 'figure'),
+    Input('store', 'data')
+)
+def update_distribution(data):
+
+    selected_restaurant = pd.DataFrame(data).index
+    
+    df_coment_count = utils.data[['restaurante','fonte']].value_counts().reset_index(name='comentarios')
+
+    dftable = pd.pivot_table(
+        df_coment_count, values='comentarios', index='restaurante', columns='fonte')
+
+    
+    dftable = dftable.fillna(0).astype('int64')
+    dftable['Total'] = dftable.sum(axis=1)
+
+
+    
+    fig = go.Figure(data=[go.Table( 
+        header=dict(values=list(dftable.reset_index(level=0).columns),
+                    fill_color='paleturquoise',
+                    align='left'),
+        cells=dict(values=[
+                        dftable.index, dftable.Facebook, dftable.Foursquare, dftable.Google,
+                        dftable.Guru, dftable.Yelp, dftable.Zomato, dftable.Total],
+                fill_color='lavender',
+                align='left'))
+    ])
+    
+    return fig
+
+# Gender distribution
+
+@app.callback(
+    Output('gender-distribution', 'figure'),
+    Input('store', 'data')
+)
+def update_gender_distribution(data):
+    df = pd.DataFrame(data)
+    fig = px.pie(df,
+             values=df.genero.value_counts().values,
+             names=df.genero.value_counts().index)
+    
     return fig

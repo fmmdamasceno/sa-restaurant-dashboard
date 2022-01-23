@@ -1,6 +1,6 @@
 from dash import html
 from dash import dcc
-from layouts import header
+from layouts.components import header
 from utils import (
     options_restaurants,
     options_idioms,

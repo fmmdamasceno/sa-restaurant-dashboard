@@ -1,6 +1,15 @@
 from dash import html
 from dash import dcc
-from layouts import header
+from layouts.components import (
+    header
+)
+from layouts.components import (
+    header,
+    distribution,
+    restaurant_rating,
+    word_cloud,
+    gender
+)
 from utils import (
     options_restaurants,
     options_idioms,
@@ -47,28 +56,8 @@ layout = html.Div([
         ]),
     ],className="menu",
     ),
-    html.Div(
-        [
-            html.Div(
-                dcc.Graph(
-                    id="restaurant-rating",
-                    config={"displayModeBar": False},
-                ),
-                className="card",
-            ),
-        ],
-        className="wrapper",
-    ),
-    html.Div(
-        [
-            html.Div(
-                dcc.Graph(
-                    id="restaurant-wordcloud",
-                    config={"displayModeBar": False},
-                ),
-                className="card",
-            ),
-        ],
-        className="wrapper",
-    ),
+    distribution.layout,
+    restaurant_rating.layout,
+    word_cloud.layout,
+    gender.layout
 ])

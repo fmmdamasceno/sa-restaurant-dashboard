@@ -1,13 +1,35 @@
 import pandas as pd
-from app import app
 import nltk
 import numpy as np
 import random
+from app import app
+from unidecode import unidecode
+
+dfgenero = pd.read_csv(
+    app.server.root_path+'/datasets/nomes.csv.gz'
+)
+
+males = dfgenero[dfgenero.classification == 'M'].first_name
+females = dfgenero[dfgenero.classification == 'F'].first_name
+
+def get_gender(name: str) -> str:
+    fname = unidecode(name.split(' ')[0].upper())
+    gender = 'Não identificado'
+    if fname in males.to_list():
+        gender = 'Masculino'
+    elif fname in females.to_list():
+        gender = 'Feminino'
+    return gender
 
 data = pd.read_csv(
     app.server.root_path+"/datasets/dataset.csv",
     dtype={'ano': 'object'})
+
 data['data'] = pd.to_datetime(data.ano, format='%Y')
+
+data['genero'] = data.autor.apply(get_gender)
+
+columns = [{"name": i, "id": i} for i in data.columns]
 
 max_date = data.data.max().date()
 min_date = data.data.min().date()
