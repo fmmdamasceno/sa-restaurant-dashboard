@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: "Lato", sans-serif;
     margin: 0;
     background-color: #F7F7F7;
@@ -75,12 +75,9 @@ body {
     color: #913327;
 }
 
-/* */
-
 .iblock {
-    display: inline-block; /* the default for span */
+    display: inline-block;
     padding: 5px;
 }
 
-/* table */
-
+*/

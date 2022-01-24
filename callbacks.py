@@ -56,8 +56,7 @@ def update_figure_restaurant_ratings(data):
         x='ano',
         y='rating',
         color='restaurante',
-        labels={'ano':'Ano','rating':'Rating','restaurante':'Restaurante'},
-        height=400)
+        labels={'ano':'Ano','rating':'Rating','restaurante':'Restaurante'})
     fig.update_traces(mode='markers+lines')
     return fig
 

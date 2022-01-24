@@ -1,10 +1,10 @@
 from dash import html
 from dash import dcc
+
 from layouts.components import (
-    header
-)
-from layouts.components import (
+    menu,
     header,
+    footer,
     distribution,
     restaurant_rating,
     word_cloud,
@@ -22,48 +22,74 @@ from utils import (
 )
 
 layout = html.Div([
+    menu.layout,
     header.layout,
     html.Div([
         html.Div([
-            html.Div('Restaurante', className="menu-title"),
-            dcc.Dropdown(
-                id='restaurant-filter',
-                options=options_restaurants,
-                value=option_random_restaurant,
-                clearable=False,
-                className="dropdown",
-            )
-        ]),
-        html.Div([
-            html.Div('Idioma', className="menu-title"),
-            dcc.Dropdown(
-                id='language-filter',
-                options=options_idioms,
-                value='Any',
-                clearable=False,
-                className="dropdown",
-            )
-        ]),
-        html.Div([
-            html.Div(
-                children="Período",
-                className="menu-title"
+            html.Div([
+                html.Div('Restaurante'),
+                dcc.Dropdown(
+                    id='restaurant-filter',
+                    options=options_restaurants,
+                    value=option_random_restaurant,
+                    clearable=False,
+                    className='dropdown',
+                    style={
+                        'color': 'gray'
+                    }
+                )
+            ], className='dropdown'),
+            html.Div([
+                html.Div('Idioma'),
+                dcc.Dropdown(
+                    id='language-filter',
+                    options=options_idioms,
+                    value='Any',
+                    clearable=False,
+                    className='dropdown',
+                    style={
+                        'color': 'gray'
+                    }
+                )
+            ], className=''),
+            html.Div([
+                html.Div("Período"),
+                dcc.DatePickerRange(
+                    id="date-range",
+                    min_date_allowed=min_date,
+                    max_date_allowed=max_date,
+                    start_date=min_date,
+                    end_date=max_date,
+                    style={
+                    }
                 ),
-            dcc.DatePickerRange(
-                id="date-range",
-                min_date_allowed=min_date,
-                max_date_allowed=max_date,
-                start_date=min_date,
-                end_date=max_date,
-            ),
-        ]),
-    ],className="menu",
-    ),
-    distribution.layout,
-    restaurant_rating.layout,
-    word_cloud.layout,
-    gender.layout,
-    rating_distribution.layout,
-    reviews_classification.layout,
-    top_reviewers.layout
-])
+            ], className='date')
+        ],className='form-control'),
+    ], className='container'),
+    html.Br(),
+    html.Div([
+        html.Div([
+            top_reviewers.layout,
+            reviews_classification.layout,
+            restaurant_rating.layout,
+        ], className='row'),
+        html.Br(),
+        html.Div([
+            rating_distribution.layout,
+            gender.layout,
+            word_cloud.layout,
+        ],className='row'),
+        html.Br(),
+        html.Div([
+            distribution.layout,
+        ],className='row'),
+        # distribution.layout,
+        # word_cloud.layout,
+        # restaurant_rating.layout,
+        # gender.layout,
+        # rating_distribution.layout,
+        # reviews_classification.layout,
+        # top_reviewers.layout
+    ], className="container-fluid"),
+    footer.layout
+],className="container-fluid")

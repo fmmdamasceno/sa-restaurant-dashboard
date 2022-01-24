@@ -1,6 +1,8 @@
+from pydoc import classname
 from dash import html
 from dash import dcc
-import dash_table as dt
+from dash import dash_table as dt
+from matplotlib.pyplot import gray
 from app import app
 from utils import columns, data
 
@@ -18,12 +20,19 @@ layout = html.Div([
                 page_action="native",
                 page_current= 0,
                 page_size= 15,
+                style_table={
+                    'fontFamily': 'Open Sans',
+                    'color': 'gray',
+                    'maxHeight': '50ex',
+                    'overflowY': 'scroll',
+                    'width': '100%',
+                    'minWidth': '100%'
+                },
                 style_data={
                     'whiteSpace': 'normal',
                     'height': 'auto',
-                    'lineHeight': '15px',
-                },
+                }
             ),
-        ], className='')
-    ],className="card"),
-],className="wrapper",)
+        ], className='card')
+    ],className="container-fluid"),
+],className='')

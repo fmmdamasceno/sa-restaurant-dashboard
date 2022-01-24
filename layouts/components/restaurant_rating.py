@@ -4,17 +4,14 @@ from dash import dcc
 
 
 layout = html.Div([
-    html.Div(
-        [
-            html.Div(['Avaliação Média'], className='menu-title'),
-            html.Div(
-                dcc.Graph(
-                    id="restaurant-rating",
-                    config={"displayModeBar": False},
-                ),
-                className="card",
-            ),
-        ],
-        className="wrapper",
+    html.Div([
+        html.Div([
+            html.H5(['Rating Médio'], className='card-title'),
+            dcc.Graph(
+                id="restaurant-rating",
+                config={"displayModeBar": False},
+            )
+        ],className="card-body p-1"),
+    ],className="card",
     ),
-])
+],className='col-md-4')

@@ -2,18 +2,16 @@ from dash import html
 from dash import dcc
 
 
+
 layout = html.Div([
-    html.Div(
-        [
-            html.Div(['Nuvem de Palavras'], className='menu-title'),
-            html.Div(
-                dcc.Graph(
-                    id="restaurant-wordcloud",
-                    config={"displayModeBar": False},
-                ),
-                className="card",
-            ),
-        ],
-        className="wrapper",
+    html.Div([
+        html.Div([
+            html.H5(['Word Cloud'], className='card-title'),
+            dcc.Graph(
+                id="restaurant-wordcloud",
+                config={"displayModeBar": False},
+            )
+        ],className="card-body p-1"),
+    ],className="card",
     ),
-])
+],className='col-md-4')
