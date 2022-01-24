@@ -128,3 +128,53 @@ def update_gender_distribution(data):
              names=df.genero.value_counts().index)
     
     return fig
+
+# Review Classification
+
+@app.callback(
+    Output('review-classification', 'figure'),
+    Input('store', 'data')
+)
+def update_review_classification(data):
+    df = pd.DataFrame(data)
+
+    fig = px.pie(df,
+             values=df.classificacao.value_counts().values,
+             names=df.classificacao.value_counts().index, hole=0.5)
+
+    return fig
+
+# Rating distribution
+
+@app.callback(
+    Output('rating-distribution', 'figure'),
+    Input('store', 'data')
+)
+def update_rating_distribution(data):
+    df = pd.DataFrame(data)
+
+    fig = px.pie(df,
+             values=df.rating.value_counts().values,
+             names=df.rating.value_counts().index, hole=0.5)
+
+    return fig
+
+# Top Reviewers
+    
+@app.callback(
+    Output('top-reviewers', 'figure'),
+    Input('store', 'data')
+)
+def update_top_reviewers(data):
+    df = pd.DataFrame(data)
+    df = df.autor.value_counts().head(10)
+    df.sort_values(ascending=True, inplace=True)
+
+    fig = px.bar(
+        df.sort_values(ascending=False),
+        x=df.values,
+        y=df.index,
+        orientation='h')
+
+    return fig
+

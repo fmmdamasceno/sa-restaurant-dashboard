@@ -8,7 +8,10 @@ from layouts.components import (
     distribution,
     restaurant_rating,
     word_cloud,
-    gender
+    gender,
+    rating_distribution,
+    reviews_classification,
+    top_reviewers
 )
 from utils import (
     options_restaurants,
@@ -59,5 +62,8 @@ layout = html.Div([
     distribution.layout,
     restaurant_rating.layout,
     word_cloud.layout,
-    gender.layout
+    gender.layout,
+    rating_distribution.layout,
+    reviews_classification.layout,
+    top_reviewers.layout
 ])

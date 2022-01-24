@@ -21,6 +21,13 @@ def get_gender(name: str) -> str:
         gender = 'Feminino'
     return gender
 
+def review_classifcation(rating: int) -> str:
+    if rating == 0:
+        return 'Não informado'
+    if rating >= 3:
+        return 'Positivo'
+    return 'Negativo'
+
 data = pd.read_csv(
     app.server.root_path+"/datasets/dataset.csv",
     dtype={'ano': 'object'})
@@ -28,6 +35,8 @@ data = pd.read_csv(
 data['data'] = pd.to_datetime(data.ano, format='%Y')
 
 data['genero'] = data.autor.apply(get_gender)
+
+data['classificacao'] = data.rating.apply(review_classifcation)
 
 columns = [{"name": i, "id": i} for i in data.columns]
 
