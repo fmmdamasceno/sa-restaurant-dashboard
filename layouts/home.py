@@ -1,10 +1,7 @@
 from dash import html
 from dash import dcc
-
+from layouts import menu, header, footer
 from layouts.components import (
-    menu,
-    header,
-    footer,
     distribution,
     restaurant_rating,
     word_cloud,

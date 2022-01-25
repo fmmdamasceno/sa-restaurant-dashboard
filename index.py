@@ -1,7 +1,7 @@
 from dash import dcc, html
 from dash.dependencies import Output, Input
 from app import app
-from layouts import explore, home, compare
+from layouts import explore, home, compare, about
 import callbacks
 
 
@@ -22,6 +22,8 @@ def display_page(pathname):
         return compare.layout
     elif pathname == '/explore':
         return explore.layout
+    elif pathname == '/about':
+        return about.layout
     else:
         return '404'
 

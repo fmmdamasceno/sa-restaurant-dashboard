@@ -15,4 +15,4 @@ app = dash.Dash(
     __name__, suppress_callback_exceptions=True,
     external_stylesheets=external_stylesheets)
 
-app.title = 'Restaurant Analytic Dashboard'
+app.title = 'Dashboard dinâmico para mineração de opinião de restaurantes estrelados no Brasil'
