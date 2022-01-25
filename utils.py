@@ -30,7 +30,7 @@ def review_classifcation(rating: int) -> str:
 
 data = pd.read_csv(
     app.server.root_path+"/datasets/dataset.csv",
-    dtype={'ano': 'object'})
+    parse_dates=['ano'])
 
 data['data'] = pd.to_datetime(data.ano, format='%Y')
 

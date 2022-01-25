@@ -31,15 +31,15 @@ def select_restaurant(restaurant, language, start_date, end_date):
 def update_figure_restaurant_ratings(data):
 
     filtered_data = pd.DataFrame(data).groupby(
-            ['restaurante','ano'],
+            ['restaurante','data'],
             as_index=False)['rating'].mean()
 
     fig = px.line(
         filtered_data,
-        x='ano',
+        x='data',
         y='rating',
         color='restaurante',
-        labels={'ano':'Ano','rating':'Rating','restaurante':'Restaurante'})
+        labels={'data':'Data','rating':'Rating','restaurante':'Restaurante'})
     
     fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     fig.update_traces(mode='markers+lines')
