@@ -58,8 +58,10 @@ option_random_restaurant = random.choice(
 
 options_idioms = [
     {'label': language, 'value': language}
-    for language in np.sort(data.idioma.fillna('Any').unique())
+    for language in np.sort(data.idioma.fillna('desconhecido').unique())
 ]
+
+options_idioms_all = [{'label': 'Todos', 'value': 'Todos'}] + options_idioms
 
 stopwords = nltk.corpus.stopwords.words()
 
@@ -70,7 +72,7 @@ def get_restaurants(restaurants, language, start_date, end_date):
         & (data.data >= start_date)
         & (data.data <= end_date)
     )
-    if language != 'Any':
+    if language != 'Todos':
         search_filter = search_filter & (data.idioma == language)
 
     return data.loc[search_filter, :]

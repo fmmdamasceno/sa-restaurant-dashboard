@@ -12,8 +12,7 @@ from layouts.components import (
 )
 from utils import (
     options_restaurants_all,
-    options_idioms,
-    option_random_restaurant,
+    options_idioms_all,
     min_date,
     max_date
 )
@@ -35,20 +34,20 @@ layout = html.Div([
                         'color': 'gray'
                     }
                 )
-            ], className='dropdown'),
+            ], className='form-group col-md-4'),
             html.Div([
                 html.Div('Idioma'),
                 dcc.Dropdown(
                     id='language-filter',
-                    options=options_idioms,
-                    value='Any',
+                    options=options_idioms_all,
+                    value='Todos',
                     clearable=False,
                     className='dropdown',
                     style={
                         'color': 'gray'
                     }
                 )
-            ], className=''),
+            ], className='form-group col-md-4'),
             html.Div([
                 html.Div("Período"),
                 dcc.DatePickerRange(
@@ -57,12 +56,13 @@ layout = html.Div([
                     max_date_allowed=max_date,
                     start_date=min_date,
                     end_date=max_date,
+                    with_portal=True,
                     style={
                     }
                 ),
-            ], className='date')
-        ],className='form-control'),
-    ], className='container'),
+            ], className='form-group col-md-4')
+        ],className='row card-body'),
+    ], className='card'),
     html.Br(),
     html.Div([
         html.Div([

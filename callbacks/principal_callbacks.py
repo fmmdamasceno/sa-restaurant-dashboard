@@ -40,6 +40,8 @@ def update_figure_restaurant_ratings(data):
         y='rating',
         color='restaurante',
         labels={'ano':'Ano','rating':'Rating','restaurante':'Restaurante'})
+    
+    fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     fig.update_traces(mode='markers+lines')
     return fig
 
@@ -61,6 +63,7 @@ def update_wordcloud(data):
         width=1600, height=800).generate(concat_words)
 
     fig = px.imshow(wordcloud.to_image())
+    fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     return fig
 
 
@@ -95,6 +98,7 @@ def update_distribution(data):
                 align='left'))
     ])
     
+    fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     return fig
 
 # Gender distribution
@@ -108,6 +112,8 @@ def update_gender_distribution(data):
     fig = px.pie(df,
              values=df.genero.value_counts().values,
              names=df.genero.value_counts().index)
+    
+    fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     
     return fig
 
@@ -124,6 +130,7 @@ def update_review_classification(data):
              values=df.classificacao.value_counts().values,
              names=df.classificacao.value_counts().index, hole=0.5)
 
+    fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     return fig
 
 # Rating distribution
@@ -133,11 +140,19 @@ def update_review_classification(data):
     Input('store', 'data')
 )
 def update_rating_distribution(data):
-    df = pd.DataFrame(data)
+
+    df = pd.DataFrame(data).rating.value_counts()
+    df.sort_index(ascending=False, inplace=True)
+    
 
     fig = px.pie(df,
-             values=df.rating.value_counts().values,
-             names=df.rating.value_counts().index, hole=0.5)
+             values=df.values,
+             names=df.index, hole=0.5)
+
+    fig.update_traces(sort=False)
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=10, b=10)
+    )
 
     return fig
 
@@ -149,7 +164,7 @@ def update_rating_distribution(data):
 )
 def update_top_reviewers(data):
     df = pd.DataFrame(data)
-    df = df.autor.value_counts().head(10)
+    df = df.autor.value_counts().head(20)
     df.sort_values(ascending=True, inplace=True)
 
     fig = px.bar(
@@ -158,5 +173,6 @@ def update_top_reviewers(data):
         y=df.index,
         orientation='h')
 
+    fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
     return fig
 
