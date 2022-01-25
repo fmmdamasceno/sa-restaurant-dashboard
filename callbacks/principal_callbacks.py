@@ -16,7 +16,12 @@ import utils
     Input("date-range", "end_date"),
 )
 def select_restaurant(restaurant, language, start_date, end_date):
-    return utils.get_restaurants([restaurant], language, start_date, end_date).to_dict()
+    restaurants = [restaurant]
+
+    if restaurant == 'Todos':
+        restaurants = utils.data.restaurante.unique()
+    
+    return utils.get_restaurants(restaurants, language, start_date, end_date).to_dict()
     
 
 @app.callback(

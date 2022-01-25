@@ -11,7 +11,7 @@ from layouts.components import (
     top_reviewers
 )
 from utils import (
-    options_restaurants,
+    options_restaurants_all,
     options_idioms,
     option_random_restaurant,
     min_date,
@@ -27,8 +27,8 @@ layout = html.Div([
                 html.Div('Restaurante'),
                 dcc.Dropdown(
                     id='restaurant-filter',
-                    options=options_restaurants,
-                    value=option_random_restaurant,
+                    options=options_restaurants_all,
+                    value='Todos',
                     clearable=False,
                     className='dropdown',
                     style={

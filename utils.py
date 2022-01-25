@@ -48,6 +48,10 @@ options_restaurants = [
     for restaurant in np.sort(data.restaurante.unique())
 ]
 
+
+
+options_restaurants_all = [{'label': 'Todos', 'value': 'Todos'}] + options_restaurants
+
 option_random_restaurant = random.choice(
     [r for r in np.sort(data.restaurante.unique())]
 )
@@ -60,6 +64,7 @@ options_idioms = [
 stopwords = nltk.corpus.stopwords.words()
 
 def get_restaurants(restaurants, language, start_date, end_date):
+    
     search_filter = (
         (data.restaurante.isin(restaurants))
         & (data.data >= start_date)
