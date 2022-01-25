@@ -44,8 +44,8 @@ layout = html.Div([
                     clearable=False,
                     className='dropdown',
                     style={
-                        'color': 'gray'
-                    }
+                        'color': 'gray',
+                    },
                 )
             ], className='form-group col-md-4'),
             html.Div([
@@ -56,13 +56,12 @@ layout = html.Div([
                     max_date_allowed=max_date,
                     start_date=min_date,
                     end_date=max_date,
-                    with_portal=True,
                     style={
                     }
                 ),
             ], className='form-group col-md-4')
         ],className='row card-body'),
-    ], className='card'),
+    ], className='form-control container-fluid'),
     html.Br(),
     html.Div([
         html.Div([
