@@ -1,6 +1,6 @@
 from dash import html
 from dash import dcc
-from layouts import menu, header, footer
+from layouts.pages import menu, header, footer
 from utils import (
     options_restaurants,
     options_idioms,
@@ -60,4 +60,4 @@ layout = html.Div([
         ],className="card-body p-1"),
     ],className="card"),
     footer.layout
-])
+], className='container-fluid')

@@ -1,9 +1,8 @@
 from dash import dcc, html
 from dash.dependencies import Output, Input
 from app import app
-from layouts import explore, home, compare, about
-import callbacks
-
+from layouts.pages import explore, home, compare, about
+from callbacks import principal_callbacks, compare_callbacks
 
 app.layout = html.Div([
     dcc.Store(id='store'),
