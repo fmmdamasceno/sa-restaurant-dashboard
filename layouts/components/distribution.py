@@ -9,7 +9,6 @@ layout = html.Div([
             dcc.Graph(
                 id="comment-distribution",
                 config={"displayModeBar": False},
-                style={'height': '34vh'}
             ),
         ],className="card-body p-1"),
     ],className="card"),

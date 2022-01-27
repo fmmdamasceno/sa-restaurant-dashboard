@@ -211,3 +211,36 @@ def update_top_reviewers(data):
 
     return fig
 
+# Distribution by platform
+
+@app.callback(
+    Output('rating-by-platform', 'figure'),
+    Input('store', 'data')
+)
+def update_top_reviewers(data):
+    data = utils.data
+    df = data[~data.fonte.isin(['Guru','Foursquare'])][['fonte','rating']]
+    df = df[['fonte','rating']].value_counts().reset_index(name='count_rating')
+    df = pd.pivot_table(df, values='count_rating', index='fonte', columns='rating')
+    df = df.fillna(0).astype('int64')
+
+    fig = go.Figure(data=[go.Table( 
+    header=dict(values=list(df.reset_index(level=0).columns),
+                fill_color='paleturquoise',
+                align='left'),
+    cells=dict(values=[
+                       df.index,
+                       df[1],
+                       df[2],
+                       df[3],
+                       df[4],
+                       df[5]],
+               fill_color='lavender',
+               align='left'))
+    ])
+
+    fig.update_layout(margin=dict(l=20, r=10, t=30, b=10), showlegend=False)
+    
+    return fig
+
+
