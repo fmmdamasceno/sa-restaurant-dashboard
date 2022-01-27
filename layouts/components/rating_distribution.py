@@ -10,6 +10,7 @@ layout = html.Div([
             dcc.Graph(
                 id="rating-distribution",
                 config={"displayModeBar": False},
+                style={'height': '30vh'}
             )
         ],className="card-body p-1"),
     ],className="card",

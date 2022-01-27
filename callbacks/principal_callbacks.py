@@ -3,6 +3,7 @@ from app import app
 from wordcloud import WordCloud
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import pandas as pd
 import utils
 
@@ -174,5 +175,38 @@ def update_top_reviewers(data):
         orientation='h')
 
     fig.update_layout(margin=dict(l=20, r=20, t=10, b=10))
+    return fig
+
+# Character Count per platform
+
+@app.callback(
+    Output('character-count', 'figure'),
+    Input('store', 'data')
+)
+def update_top_reviewers(data):
+    df = pd.DataFrame(data)
+
+    fig = make_subplots(
+        rows=2, cols=3,
+        subplot_titles=("Google","Facebook","Foursquare","Yelp", "Zomato")
+    )
+
+    fig.add_trace(
+        go.Histogram(x=df[df.fonte == 'Google']['caracteres']), row=1, col=1,)
+
+    fig.add_trace(
+        go.Histogram(x=df[df.fonte == 'Facebook']['caracteres']), row=1, col=2)
+
+    fig.add_trace(
+        go.Histogram(x=df[df.fonte == 'Foursquare']['caracteres']), row=1, col=3)
+
+    fig.add_trace(
+        go.Histogram(x=df[df.fonte == 'Yelp']['caracteres']), row=2, col=1)
+
+    fig.add_trace(
+        go.Histogram(x=df[df.fonte == 'Zomato']['caracteres']),row=2, col=2)
+
+    fig.update_layout(margin=dict(l=20, r=0, t=30, b=10), showlegend=False)
+
     return fig
 

@@ -2,12 +2,13 @@ from dash import html
 from dash import dcc
 
 
+
 layout = html.Div([
     html.Div([
         html.Div([
-            html.H5(['Distribuição dos comentários'], className='card-title'),
+            html.H5(['Quantidade de Caracteres'], className='card-title'),
             dcc.Graph(
-                id="comment-distribution",
+                id="character-count",
                 config={"displayModeBar": False},
                 style={'height': '34vh'}
             ),
