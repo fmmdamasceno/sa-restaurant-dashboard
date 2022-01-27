@@ -192,7 +192,7 @@ def update_top_reviewers(data):
     )
 
     fig.add_trace(
-        go.Histogram(x=df[df.fonte == 'Google']['caracteres']), row=1, col=1,)
+        go.Histogram(x=df[df.fonte == 'Google']['caracteres']), row=1, col=1)
 
     fig.add_trace(
         go.Histogram(x=df[df.fonte == 'Facebook']['caracteres']), row=1, col=2)
@@ -206,7 +206,8 @@ def update_top_reviewers(data):
     fig.add_trace(
         go.Histogram(x=df[df.fonte == 'Zomato']['caracteres']),row=2, col=2)
 
-    fig.update_layout(margin=dict(l=20, r=0, t=30, b=10), showlegend=False)
+    fig.update_xaxes(title_text='Quantidade de caracteres')
+    fig.update_layout(margin=dict(l=20, r=10, t=30, b=10), showlegend=False)
 
     return fig
 
