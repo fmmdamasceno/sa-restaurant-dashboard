@@ -6,7 +6,7 @@ from dash import dcc
 layout = html.Div([
     html.Div([
         html.Div([
-            html.H5(['Classificação dos Reviews'], className='card-title'),
+            html.H5(['Polaridade das avaliações'], className='card-title'),
             dcc.Graph(
                 id="review-classification",
                 config={"displayModeBar": False},

@@ -6,7 +6,7 @@ from dash import dcc
 layout = html.Div([
     html.Div([
         html.Div([
-            html.H5(['Word Cloud'], className='card-title'),
+            html.H5(['Nuvem de palavras'], className='card-title'),
             dcc.Graph(
                 id="restaurant-wordcloud",
                 config={"displayModeBar": False},

@@ -6,7 +6,7 @@ from dash import dcc
 layout = html.Div([
     html.Div([
         html.Div([
-            html.H5(['Quantidade de Caracteres'], className='card-title'),
+            html.H5(['Quantidade de caracteres'], className='card-title'),
             dcc.Graph(
                 id="character-count",
                 config={"displayModeBar": False},
