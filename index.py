@@ -6,6 +6,7 @@ from callbacks import principal_callbacks, compare_callbacks
 
 app.layout = html.Div([
     dcc.Store(id='store'),
+    dcc.Store(id='store-compare'),
     dcc.Store(id='parameters'),
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')

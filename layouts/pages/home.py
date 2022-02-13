@@ -83,13 +83,6 @@ layout = html.Div([
             distribution.layout,
             distribution_by_platform.layout
         ],className='row'),
-        # distribution.layout,
-        # word_cloud.layout,
-        # restaurant_rating.layout,
-        # gender.layout,
-        # rating_distribution.layout,
-        # reviews_classification.layout,
-        # top_reviewers.layout
     ], className="container-fluid"),
     footer.layout
 ],className="container-fluid")
