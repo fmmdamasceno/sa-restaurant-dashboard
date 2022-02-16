@@ -1,4 +1,8 @@
+from time import sleep
+from turtle import width
 from dash.dependencies import Input, Output
+from matplotlib.figure import Figure
+from matplotlib.pyplot import tick_params
 from app import app
 from wordcloud import WordCloud
 from plotly.subplots import make_subplots
@@ -6,6 +10,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 import utils
+import numpy as np
 
 
 
@@ -154,5 +159,80 @@ def update_rating_distribution(data):
         fig.update_traces(hole=0.5, sort=False)
         fig.update_layout(margin=dict(l=20, r=20, t=30, b=10))
     
+
+    return fig
+
+
+# WordCloud Callback
+@app.callback(
+    Output('restaurant-wordcloud-compare', 'figure'),
+    Input('store-compare', 'data')
+)
+def update_wordcloud(data):
+    from skimage import io
+    image = io.imread('https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Crab_Nebula.jpg/240px-Crab_Nebula.jpg')
+    df = pd.DataFrame(data)
+
+    fig = {}
+
+    restaurants = list(df.restaurante.unique())
+
+    restaurant_count = len(restaurants)
+
+    if restaurant_count > 1:
+            
+        fig = make_subplots(
+            rows=1, cols=restaurant_count,
+            subplot_titles=[r.capitalize() for r in restaurants],
+            specs=[restaurant_count * [{'type':'image'}]],
+            #specs=[restaurant_count * [{'type':'xy'}]],
+            vertical_spacing=0.02,
+            horizontal_spacing=0.02,
+            shared_yaxes=True,
+            shared_xaxes=True,
+            column_widths=restaurant_count * [1/restaurant_count]
+        )
+
+        layout = go.Layout(
+            xaxis = go.XAxis(
+                showticklabels=False
+            ),
+            yaxis = go.YAxis(
+                showticklabels=False
+            ),
+        )
+        print(restaurant_count * [1/restaurant_count])
+        
+        for idx,restaurant in enumerate(restaurants):
+            filtered_data = df.loc[df.restaurante == restaurant].dropna(
+                subset=['comentario'], axis=0)['comentario']
+
+            concat_words = " ".join(s for s in filtered_data)
+
+            wordcloud = WordCloud(
+                stopwords=utils.stopwords,
+                background_color="black",
+                height=200).generate(concat_words)
+            
+            image = wordcloud.to_file('/tmp/img.png')
+            #wordclouds.append(wordcloud.to_image())
+            ##fig.add_trace(px.imshow(image).data[0], 1, idx+1)
+            fig.append_trace(go.Image(z=image), row=1, col=idx+1)
+        
+  
+        fig.update_layout(
+            margin=dict(l=10, r=10, t=30, b=10),
+            showlegend=False,
+        )
+        fig.update_xaxes(
+            showticklabels=False,
+            automargin=True
+        )
+        fig.update_yaxes(
+            showticklabels=False
+        )
+
+       
+        
 
     return fig

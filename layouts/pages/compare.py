@@ -5,7 +5,8 @@ from layouts.components import (
     compare_gender,
     compare_restaurant_rating,
     compare_review_classification,
-    compare_rating_distribution
+    compare_rating_distribution,
+    compare_word_cloud
 )
 from utils import (
     options_restaurants,
@@ -64,6 +65,10 @@ layout = html.Div([
     html.Div([
         html.Div([
             compare_restaurant_rating.layout,
+        ], className='row'),
+        html.Br(),
+        html.Div([
+            compare_word_cloud.layout,
         ], className='row'),
         html.Br(),
         html.Div([
