@@ -68,10 +68,6 @@ layout = html.Div([
         ], className='row'),
         html.Br(),
         html.Div([
-            compare_word_cloud.layout,
-        ], className='row'),
-        html.Br(),
-        html.Div([
             compare_gender.layout,
         ],className='row'),
         html.Br(),
@@ -82,6 +78,10 @@ layout = html.Div([
         html.Div([
             compare_rating_distribution.layout
         ],className='row'),
+        html.Br(),
+        html.Div([
+            compare_word_cloud.layout,
+        ], className='row'),
     ], className="container-fluid"),
     footer.layout
 ],className="container-fluid")
