@@ -1,8 +1,4 @@
-from time import sleep
-from turtle import width
 from dash.dependencies import Input, Output
-from matplotlib.figure import Figure
-from matplotlib.pyplot import tick_params
 from app import app
 from wordcloud import WordCloud
 from plotly.subplots import make_subplots
@@ -10,7 +6,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 import utils
-import numpy as np
 
 
 
