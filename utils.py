@@ -2,6 +2,7 @@ import pandas as pd
 import nltk
 import numpy as np
 import random
+import iso639
 from app import app
 from unidecode import unidecode
 
@@ -46,7 +47,7 @@ max_date = data.data.max().date()
 min_date = data.data.min().date()
 
 options_restaurants = [
-    {'label': restaurant, 'value': restaurant}
+    {'label': restaurant.capitalize(), 'value': restaurant}
     for restaurant in np.sort(data.restaurante.unique())
 ]
 
@@ -59,8 +60,8 @@ option_random_restaurant = random.choice(
 )
 
 options_idioms = [
-    {'label': language, 'value': language}
-    for language in np.sort(data.idioma.fillna('desconhecido').unique())
+    {'label': iso639.to_name(language), 'value': language}
+    for language in np.sort(data.idioma.fillna('desconhecido').unique()) if iso639.find(language)
 ]
 
 options_idioms_all = [{'label': 'Todos', 'value': 'Todos'}] + options_idioms

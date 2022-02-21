@@ -10,6 +10,7 @@ Flask==2.0.2
 Flask-Compress==1.10.1
 fonttools==4.29.1
 imageio==2.16.0
+iso639==0.1.4
 itsdangerous==2.0.1
 Jinja2==3.0.3
 joblib==1.1.0
