@@ -41,7 +41,7 @@ data['classificacao'] = data.rating.apply(review_classifcation)
 
 data['caracteres'] = data.comentario.apply(lambda ch: len(str(ch)))
 
-columns = [{"name": i, "id": i} for i in data.columns]
+columns = [{"name": i.capitalize(), "id": i} for i in data.columns]
 
 max_date = data.data.max().date()
 min_date = data.data.min().date()
