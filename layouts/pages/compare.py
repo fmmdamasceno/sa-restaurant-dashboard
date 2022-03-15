@@ -19,6 +19,9 @@ layout = html.Div([
     menu.layout,
     header.layout,
     html.Div([
+        html.H1("Compare - Análise Comparativa", style={'text-align':'center'})
+    ]),
+    html.Div([
         html.Div([
             html.Div([
                 html.Div('Restaurante'),

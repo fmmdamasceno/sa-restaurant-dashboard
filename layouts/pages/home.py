@@ -24,6 +24,9 @@ layout = html.Div([
     header.layout,
     html.Div([
         html.Div([
+            html.H1("Principal - Análise individual",style={'text-align':'center'})
+        ]),
+        html.Div([
             html.Div([
                 html.Div('Restaurante'),
                 dcc.Dropdown(

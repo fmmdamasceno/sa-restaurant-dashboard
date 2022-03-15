@@ -8,6 +8,9 @@ layout = html.Div([
     menu.layout,
     header.layout,
     html.Div([
+        html.H1("Sobre", style={'text-align':'center'})
+    ]),
+    html.Div([
         dcc.Markdown('''
         Este projeto foi desenvolvido por **Francisco Marcelo Mendes Damasceno** sob a orientação do **Prof. Dr. Tiago Eugenio de Melo**, como trabalho final de conclusão do curso de **Pós-Graduação *Latu Sensu* em Ciência de Dados** ofertado pela **Escola Superior de Tecnologia** da **Universidade do Estado do Amazonas (UEA)**.
        
