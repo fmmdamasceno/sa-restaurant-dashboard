@@ -1,8 +1,8 @@
 # Dashboard dinâmico para mineração de opinião de restaurantes estrelados no Brasil
 ### Análise de comentários das plataformas de restaurantes Michelin no Brasil no período entre 2014 e 2020
+--
 
 Este projeto foi desenvolvido por Francisco Marcelo Mendes Damasceno sob a orientação do Prof. Dr. Tiago Eugenio de Melo, como trabalho final de conclusão do curso de Pós-Graduação Latu Sensu em Ciência de Dados ofertado pela Escola Superior de Tecnologia da Universidade do Estado do Amazonas (UEA).
---
 
 Demo: https://dashboard.marcelomendes.dev/
 
